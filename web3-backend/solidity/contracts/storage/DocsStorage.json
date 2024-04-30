@@ -1,0 +1,20 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "ipfsAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "bytes",
+				"name": "docInfoData",
+				"type": "bytes"
+			}
+		],
+		"name": "registerNewDoc",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]
