@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import MetaMask from "../../components/meta-mask.jsx";
+import MetaMaskConnector from "../../components/meta-mask-connector.jsx";
 
-function Home() {
+function Home(props) {
   return (
     <>
       <h1>Home Page</h1>
       <Link to="/upload">Upload</Link>
       <Link to="/verify">Verify</Link>
       <Link to="/search">Search</Link>
-      <MetaMask />
+      <MetaMaskConnector metaMaskWallet={props.metaMaskWallet}/>
     </>
   );
 }
