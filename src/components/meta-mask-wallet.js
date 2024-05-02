@@ -1,12 +1,14 @@
 import { Web3 } from "web3";
 
 class MetaMaskWallet {
-  constructor() {
+  #web3;
+  constructor(web3) {
+    this.#web3 = web3;
     this.connect = this.connect.bind(this);
     this.loadAccoundAddress = this.loadAccoundAddress.bind(this);
 
-    const web3 = new Web3(window.ethereum);
-    this.loadAccoundAddress(web3);
+    // const web3 = new Web3(window.ethereum);
+    this.loadAccoundAddress();
   }
 
   state = {
@@ -14,8 +16,8 @@ class MetaMaskWallet {
     connectedAddress: "none",
   };
 
-  async loadAccoundAddress(web3) {
-    const accounts = await web3.eth.getAccounts();
+  async loadAccoundAddress() {
+    const accounts = await this.#web3.eth.getAccounts();
     if (accounts[0]) {
       this.state = {
         connectedAddress: accounts[0],
@@ -32,10 +34,9 @@ class MetaMaskWallet {
       alert("install MetaMask extension");
     }
 
-    const web3 = new Web3(window.ethereum);
     await window.ethereum.request({ method: "eth_requestAccounts" });
 
-    await this.loadAccoundAddress(web3);
+    await this.loadAccoundAddress();
   }
 }
 

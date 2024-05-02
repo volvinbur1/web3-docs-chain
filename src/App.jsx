@@ -5,14 +5,17 @@ import Upload from './pages/upload/upload'
 import Verify from './pages/verify/verify'
 import Search from './pages/search/search'
 import MetaMaskWallet from './components/meta-mask-wallet'
+import Web3 from 'web3'
 
 function App() {
-  let metaMaskWallet = new MetaMaskWallet()
+  const web3 = new Web3(window.ethereum)
+  let metaMaskWallet = new MetaMaskWallet(web3)
+  
   return (
     <HashRouter>
       <Routes>
         <Route path="/" element={<Home metaMaskWallet={metaMaskWallet}/>}/>
-        <Route path="/upload" element={<Upload metaMaskWallet={metaMaskWallet}/>}/>
+        <Route path="/upload" element={<Upload web3={web3} metaMaskWallet={metaMaskWallet}/>}/>
         <Route path="/verify" element={<Verify/>}/>
         <Route path="/search" element={<Search/>}/>
       </Routes>

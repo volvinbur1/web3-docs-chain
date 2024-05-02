@@ -4,7 +4,7 @@ import { useState } from "react";
 
 function Upload(props) {
   const [file, setFile] = useState(null);
-  const docProcessor = new DocsProcessor(props.metaMaskWallet);
+  const docProcessor = new DocsProcessor(props.web3, props.metaMaskWallet);
 
   return (
     <>

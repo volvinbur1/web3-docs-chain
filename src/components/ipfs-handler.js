@@ -21,7 +21,7 @@ class IpfsHandler {
       });
   }
 
-  uploadFile(file) {
+  async uploadFile(file) {
     if (!file) {
       alert("file is not selected");
       return;
@@ -42,26 +42,32 @@ class IpfsHandler {
       })
     );
 
-    axios
-      .post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
-        maxBodyLength: "Infinity",
-        headers: {
-          "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
-          authorization: `Bearer ${import.meta.env.VITE_PINATA_JWT}`,
-        },
-      })
-      .then(function (response) {
-        if (response.status / 100 > 2) {
-          console.log(
-            `pin file to IPFS failed with status ${response.status}(${response.statusText})`
-          );
-        } else if (response.data) {
+    try {
+      const response = await axios.post(
+        "https://api.pinata.cloud/pinning/pinFileToIPFS",
+        formData,
+        {
+          maxBodyLength: "Infinity",
+          headers: {
+            "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
+            authorization: `Bearer ${import.meta.env.VITE_PINATA_JWT}`,
+          },
         }
-      })
-      .catch(function (error) {
-        console.log(`error occured on authentication test: ${error}`);
-      });
-    console.log(file);
+      );
+
+      if (response.status / 100 > 2) {
+        console.log(
+          `pin file to IPFS failed with status ${response.status}(${response.statusText})`
+        );
+      } else if (response.data) {
+        console.log(
+          `file ${file.name} uploaded to IPFS ${response.data.IpfsHash}`
+        );
+        return response.data.IpfsHash;
+      }
+    } catch (error) {
+      console.log(`error occured on authentication test: ${error}`);
+    }
   }
 }
 
