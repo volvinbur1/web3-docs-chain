@@ -13,7 +13,7 @@ function Upload(props) {
 
       <div>
         <input type="file" onChange={(event) => {setFile(event.target.files[0])}} />
-        <button onClick={() => {docProcessor.uploadNewDoc(file)}}>Upload!</button>
+        <button onClick={() => {docProcessor.handleNewDoc(file)}}>Upload!</button>
       </div>
     </>
   );

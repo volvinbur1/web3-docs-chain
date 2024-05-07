@@ -66,7 +66,51 @@ class IpfsHandler {
         return response.data.IpfsHash;
       }
     } catch (error) {
-      console.log(`error occured on authentication test: ${error}`);
+      console.log(`file ${file.name} upload failed: ${error}`);
+    }
+  }
+
+  async uploadNftMetadata(fileName, metadata) {
+    const formData = new FormData();
+    formData.append("file", JSON.stringify(metadata));
+    formData.append(
+      "pinataMetadata",
+      JSON.stringify({
+        name: `${fileName}_metadata.json`,
+      })
+    );
+    formData.append(
+      "pinataOptions",
+      JSON.stringify({
+        cidVersion: 0,
+      })
+    );
+
+    try {
+      const response = await axios.post(
+        "https://api.pinata.cloud/pinning/pinFileToIPFS",
+        formData,
+        {
+          maxBodyLength: "Infinity",
+          headers: {
+            "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
+            authorization: `Bearer ${import.meta.env.VITE_PINATA_JWT}`,
+          },
+        }
+      );
+
+      if (response.status / 100 > 2) {
+        console.log(
+          `pin metadata file to IPFS failed with status ${response.status}(${response.statusText})`
+        );
+      } else if (response.data) {
+        console.log(
+          `file ${fileName} metadata uploaded to IPFS ${response.data.IpfsHash}`
+        );
+        return response.data.IpfsHash;
+      }
+    } catch (error) {
+        console.log(`file ${file.name} metadata upload failed: ${error}`);
     }
   }
 }

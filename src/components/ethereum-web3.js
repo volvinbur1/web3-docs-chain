@@ -17,12 +17,11 @@ class Ethereum {
 
   storeNewPaper(ipfsFileHash, docInfo) {
     const docInfoData = this.#web3.eth.abi.encodeParameters(
-      ["string", "string", "string", "string", "string"],
+      ["string", "string", "string", "string"],
       [
         docInfo.topic,
         docInfo.description,
-        docInfo.authorName,
-        docInfo.authorSurname,
+        docInfo.authorsName,
         docInfo.authorScienceDegree,
       ]
     );

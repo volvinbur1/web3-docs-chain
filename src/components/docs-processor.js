@@ -11,23 +11,33 @@ class DocsProcessor {
     this.#ethereum = new Ethereum(web3, metaMaskWallet);
   }
 
-  async uploadNewDoc(file) {
+  async handleNewDoc(file, docDesc) {
     if (!this.metaMaskWallet.state.isMetaMaskConnected) {
       alert("Connect metamask first");
     }
+    
+
+    this.#ethereum.storeNewPaper(uploadedFileIpfsHash, {
+      topic: "test_topic",
+      description: "test_description",
+      authorsName: "test_authors_name",
+      authorScienceDegree: "test_auhtor_science_degree",
+    });
+  }
+
+  async #uploadDocToIpfs(file, docDesc) {
     const uploadedFileIpfsHash = await this.#ipfsHandler.uploadFile(file);
     if (!uploadedFileIpfsHash) {
       console.log(`file ${file.name} not uploaded`);
       return;
     }
 
-    this.#ethereum.storeNewPaper(uploadedFileIpfsHash, {
-      topic: "test_topic",
-      description: "test_description",
-      authorName: "test_author_name",
-      authorSurname: "test_author_surname",
-      authorScienceDegree: "test_auhtor_science_degree",
-    });
+    const metadata = {
+        name: docDesc.topic,
+        description: docDesc.description,
+        image: import.meta.env.VITE_IMAGE_ICON,
+        docFileIpfs: 
+    }
   }
 }
 
