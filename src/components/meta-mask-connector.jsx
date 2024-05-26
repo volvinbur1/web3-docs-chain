@@ -1,5 +1,12 @@
 import { useState } from "react";
 
+function ShowConnectedWallet({address}) {
+  if (address != "none") {
+    return <p>ConnectedAccount: {address}</p>
+  }
+  return <></>
+}
+
 function MetaMaskConnector(props) {
   const [address, setAddress] = useState(
     props.metaMaskWallet.state.connectedAddress
@@ -14,7 +21,7 @@ function MetaMaskConnector(props) {
       >
         Connect MetaMask
       </button>
-      <p>ConnectedAccount: {address}</p>
+      <ShowConnectedWallet address={address}/>
     </>
   );
 }

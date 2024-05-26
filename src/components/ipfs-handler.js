@@ -17,7 +17,7 @@ class IpfsHandler {
         }
       })
       .catch(function (error) {
-        console.log(`error occured on authentication test: ${error}`);
+        console.log(`error occurred on authentication test: ${error}`);
       });
   }
 
@@ -71,8 +71,16 @@ class IpfsHandler {
   }
 
   async uploadNftMetadata(fileName, metadata) {
+    const file = new File(
+      [JSON.stringify(metadata, null, 2)],
+      `${fileName}_metadata.json`,
+      {
+        type: "application/json",
+      }
+    );
+
     const formData = new FormData();
-    formData.append("file", JSON.stringify(metadata));
+    formData.append("file", file);
     formData.append(
       "pinataMetadata",
       JSON.stringify({
@@ -110,7 +118,7 @@ class IpfsHandler {
         return response.data.IpfsHash;
       }
     } catch (error) {
-        console.log(`file ${file.name} metadata upload failed: ${error}`);
+      console.log(`file ${fileName} metadata upload failed: ${error}`);
     }
   }
 }

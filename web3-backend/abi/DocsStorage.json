@@ -3,8 +3,13 @@
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "ipfsAddress",
+				"name": "nftIpfsAddress",
 				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "nftId",
+				"type": "uint256"
 			},
 			{
 				"internalType": "bytes",
@@ -15,6 +20,107 @@
 		"name": "registerNewDoc",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getDocsList",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "docIpfsAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "topic",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "authorName",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "uploaderAddress",
+						"type": "address"
+					}
+				],
+				"internalType": "struct DocsStorage.DocInfo[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "enum DocsStorage.SearchOption",
+				"name": "option",
+				"type": "uint8"
+			},
+			{
+				"internalType": "string",
+				"name": "searchText",
+				"type": "string"
+			}
+		],
+		"name": "search",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "docIpfsAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "topic",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "authorName",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "uploaderAddress",
+						"type": "address"
+					}
+				],
+				"internalType": "struct DocsStorage.DocInfo[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	}
 ]
